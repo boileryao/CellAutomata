@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">LifeGame</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="button_start">Start Evolution</string>
 </resources>
