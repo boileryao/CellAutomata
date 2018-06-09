@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/menu_resize_map"
+        android:icon="@drawable/ic_set_wh_white_24dp"
+        android:title="修改地图大小"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/menu_restart"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="重新开始"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+</menu>
