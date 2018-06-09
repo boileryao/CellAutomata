@@ -7,7 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,7 +79,25 @@ public class LifeGameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 lifeGame.iterate();
-                runOnUiThread(() -> dashboardAdapter.update(lifeGame.getLivesMatrix()));
+                boolean[][] livesMatrix = lifeGame.getLivesMatrix();
+                boolean allDead = true;
+                outerLoop:
+                for (boolean[] livesRow : livesMatrix) {
+                    for (boolean alive : livesRow) {
+                        if (alive) {
+                            allDead = false;
+                            break outerLoop;
+                        }
+                    }
+                }
+                boolean finalAllDead = allDead;
+                runOnUiThread(() -> {
+                    if (finalAllDead) {
+                        Toast.makeText(getApplicationContext(), "全部死亡, 重新开始游戏", Toast.LENGTH_LONG).show();
+                        lifeGame.initialize((i, j) -> Math.random() > 0.5);
+                    }
+                    dashboardAdapter.update(livesMatrix);
+                });
             }
         };
         refreshTimer.scheduleAtFixedRate(refreshTask, 1200, 1200);
