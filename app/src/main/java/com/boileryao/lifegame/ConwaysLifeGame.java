@@ -26,13 +26,13 @@ public class ConwaysLifeGame {
     ConwaysLifeGame(int width, int height, @Nullable LivesMatrixDisplay display) {
         this.width = width;
         this.height = height;
-        this.livesMatrix = new boolean[width][height];
+        this.livesMatrix = new boolean[height][width];
         this.display = display;
     }
 
     public void initialize(LivesMatrixInitializer initializer) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 livesMatrix[i][j] = initializer.getInitialState(i, j);
             }
         }
@@ -40,8 +40,8 @@ public class ConwaysLifeGame {
 
     public void iterate() {
         boolean[][] livesMatrixCopy = copyOfLivesMatrix();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 switch (getAliveNeighbors(i, j)) {
                     case 2:
                         continue;  // 保持该位置状态不变
@@ -66,11 +66,11 @@ public class ConwaysLifeGame {
     private int getAliveNeighbors(int i, int j) {
         int aliveNeighborCount = 0;
         for (int[] diff : neighborVectors) {
-            int w = i + diff[0];
-            int h = j + diff[1];
+            int h = i + diff[0];
+            int w = j + diff[1];
             if (w < 0 || w >= width || h < 0 || h >= height) continue;
 
-            if (/*this neighbor is alive */livesMatrix[w][h]) {
+            if (/*this neighbor is alive */livesMatrix[h][w ]) {
                 ++aliveNeighborCount;
             }
         }
@@ -78,14 +78,14 @@ public class ConwaysLifeGame {
     }
 
     private boolean[][] copyOfLivesMatrix() {
-        boolean[][] copyMatrix = new boolean[width][];
-        for (int i = 0; i < width; i++) {
-            copyMatrix[i] = Arrays.copyOf(livesMatrix[i], height);
+        boolean[][] copyMatrix = new boolean[height][];
+        for (int i = 0; i < height; i++) {
+            copyMatrix[i] = Arrays.copyOf(livesMatrix[i], width);
         }
         return copyMatrix;
     }
 
-    public int getRowCount() {
+    public int getWidth() {
         return width;
     }
 }

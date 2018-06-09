@@ -30,9 +30,10 @@ public class DashboardAdapter extends BaseAdapter {
 
     @Override
     public Boolean getItem(int position) {
-        int i = position / livesMatrix.length;
-        int j = position % livesMatrix.length;
-        return livesMatrix[i][j];
+        int cellsPerRow = livesMatrix[0].length;
+        int h = position / cellsPerRow;
+        int w = position % cellsPerRow;
+        return livesMatrix[h][w];
     }
 
     @Override
